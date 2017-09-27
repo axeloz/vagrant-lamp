@@ -23,14 +23,14 @@ You may adapt the services configuration (like PHP for example) according to you
 For your team, it guaranties that all developers are using the exact same environment. Plus you get rid of the pain of installing a Linux environment from scratch. Let's say that a new developer joins the team, he's ready to dig into your projects in no time.
 Finally, the team members can run a `vagrant provision` in order to apply any recipe update if applicable. This is very convenient when the lead developer adds a new tool in the recipes, it can be deployed for the entire team with no hassle.
 
-### ⚠ Attention ⚠
-
-You must understand that the VM is meant to be disposable, it is not supposed to be persistent. Any persistent data **should remain on your host computer**, do not apply changes to the VM nor store data or documents that you don't want to loose. 
+```
+⚠ You must understand that the VM is meant to be disposable, it is not supposed to be persistent. Any persistent data **should remain on your host computer**, do not apply changes to the VM nor store data or documents that you don't want to loose. 
 
 As a consequence, you may mess up with the VM, do heavy testing, install new apps to evaluate them and even crash it. If you need to rollback, just destroy it and recreate it as pure as the driven snow. It is as simple as a `vagrant destroy && vagrant up`.
 
 Also this starter kit was tested and used on a Apple computer. It supposed on any system but this is **untested**. 
 Let me know if you encounter any issue.
+```
 
 ## Content of the starter kit
 
