@@ -122,7 +122,7 @@ Your local environment is available from your host computer at the address: http
 
 In some cases, you might need to create a dedicated virtual host to access your project. For example: http://myproject.local:8080. 
 
-**For Mac and Unix systems:** In order to do so, a script `create-vhost.sh` is provided to the root of the repository. Make sure it is executable (`chmod +x create-vhost.sh`) and run it (`./create-vhost.sh`). Just following the instructions, the script will then create an entry into the `/etc/hosts` file and add the virtual host to Apache into the `vagrant-lamp/apache/conf` folder. 
+**For Mac and Unix systems:** In order to do so, a script `create-vhost.sh` is provided to the root of the repository. Make sure it is executable (`chmod +x create-vhost.sh`) and run it (`./create-vhost.sh`). Just follow the instructions, the script will then create an entry into the `/etc/hosts` file and will add the virtual host to Apache into the `vagrant-lamp/apache/conf` folder. Finally it will reload Apache. 
 
 **In any case:** You may also do it manually by creating the Apache virtual host configuration file into the `vagrant-lamp/apache/conf`. Attention: the file must be named with a `.conf` suffix. 
 You must also add manually an entry into the `hosts` file. 
