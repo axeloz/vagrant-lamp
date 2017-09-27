@@ -132,6 +132,7 @@ You may access the VM using SSH using the `vagrant ssh` command.
 There is an existing Unix user:
 - login: vagrant
 - password: vagrant
+
 This user belongs to the sudoers and may `sudo` with no password required.
 
 The SSH identity forwarding is enabled from the host to the VM (`config.ssh.forward_agent = true`). This means that your host computer's SSH identity is forwarded to the VM. That may be useful in many cases. For example, you clone a Github repository to your host computer using the host's SSH public key attached to your Github account. With the identify forwarding enabled, you can SSH to the VM, `cd` to the downloaded repository and run a `git pull`. It will use your host computer's keypair. There is no need to add a new public key on your Github account.
