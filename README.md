@@ -16,7 +16,7 @@ Using one command only, a LAMP environment is installed on your computer among a
 You must understand that you can do whatever you want with the Vagrant Virtual Machine (or VM) like adding files, removing anything, installing new applications using APT or compilation. But be aware that the VM is not supposed to be persistent. The persistent data **are and should remain on your host computer**. The VM is throwable, you may mess with it, crash it, remove it and recreate it brand as new. It is that simple as `vagrant destroy && vagrant up`.
 
 
-## Content of the environment
+## Content of the starter kit
 
 - Apache2 (http://www.apache.org)
 - Bower (https://bower.io)
@@ -112,10 +112,23 @@ In order to upgrade, just:
 
 ### Apache
 
+#### Access
 Your local environment is available from your host computer at the address: http://localhost:8080. This will launch a default application that will:
 - list all your projects 
 - show the PHP configuration
 - show the server informations
+
+#### Dedicated Apache virtual host
+
+In some cases, you might need to create a dedicated virtual host to access your project. For example: http://myproject.local:8080. 
+
+**For Mac and Unix system**
+In order to do so, a script `create-vhost.sh` is provided to the root of the repository. Make sure it is executable (`chmod +x create-vhost.sh`) and run it (`./create-vhost.sh`). Just provided the required information, the script will then create an entry into the `/etc/hosts` file and add the virtual host to Apache into the `vagrant-lamp/apache/conf` folder. 
+
+**In any case**
+You may also do it manually by created the Apache virtual host configuration file into the `vagrant-lamp/apache/conf`. Attention: the file must be named with a `.conf` suffix. 
+You must also add manually an entry into the `hosts` file. 
+Finally you must reload Apache on the VM machine using `service apache2 reload`.
 
 You may also access the http://localhost:8080/mail.php page. This is a test form allowing you to test the Mailcatcher application.
 
