@@ -155,6 +155,13 @@ In any case: you can also do it manually by creating the Apache virtual host con
 You must also add manually an entry into the computer's `hosts` file. 
 Finally, you must reload Apache on the VM machine using `service apache2 reload`.
 
+#### Projects browser
+
+This starter kit comes with a homemade projects browser. To access this browser, simply visit http://localhost:8080 from your host Web browser. 
+The project browser will show the content of the `/vagrant/www` directory and allow you to navigate into the subfolders. 
+
+[The projects browser](https://github.com/axeloz/vagrant-lamp/raw/master/screenshot.png)
+
 #### Mailcatcher test form
 
 You may also access the http://localhost:8080/mail.php page. This is a test form allowing you to test the Mailcatcher application.
