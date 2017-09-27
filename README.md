@@ -7,25 +7,27 @@ This repository contains a starter kit providing a fully fonctional **Ubuntu Ser
 
 This starter kit uses a virtualization application (**VirtualBox**), a virtualization wrapper (**Vagrant**) and a recipes manager (**Chef Solo**). See "[Installation](#installation)" below.
 
-The Vagrant Virtual Machine (or VM) will run a Ubuntu Server instance. The **box image used was created by me**. It is hosted on VagrantUp as [axeloz/ubuntu-server-16.04](https://app.vagrantup.com/axeloz/boxes/ubuntu-server-16.04). It is a clean install of Ubuntu with just a little bit of configuration in it. You may use a different box or use your own by editing the `config.vm.box` setting into the `Vagrantfile` at the root of this repository. You should use an Ubuntu box. It might also work on Debian but this is untested. Changing the Vagrant box is at your own risk as I cannot guaranty the compatibility. 
+The Vagrant Virtual Machine (or VM) will run a Ubuntu Server instance. The **box image used was created by me**. It is hosted on VagrantUp as [axeloz/ubuntu-server-16.04](https://app.vagrantup.com/axeloz/boxes/ubuntu-server-16.04). It is a clean install of Ubuntu with just a little bit of configuration in it. You may use a different box or use your own by editing the `config.vm.box` setting into the [Vagrantfile](https://github.com/axeloz/vagrant-lamp/blob/master/Vagrantfile). I highly recommend to use an Ubuntu distribution. It might also work on Debian but this is untested. Changing the Vagrant box is at your own risk as I cannot guaranty the compatibility. 
 
 ### Why should I use this starter kit?
 
 Using one command only, a LAMP environment is installed on your computer among all the required tools for your developments. The Vagrant Virtual Machine (or VM) can be stopped when you don't need it and started when you need it.
 
-More tools can be added very easily if you need to. Just edit the recipe and build your own VM according to your needs.
+More tools can be added very easily if you need to. Just edit the [recipe](https://github.com/axeloz/vagrant-lamp/blob/master/cookbooks/lamp/recipes/default.rb) and build your own VM according to your needs.
 
-The VM is throwable. All the data remains on the host computer. Just backup the host computer, you are sure you will not loose anything (sources, databases, configuration files...). 
-The VM crashed because you messed with it? Just destroy it and restart it. You're good to go in no time.
+The VM is disposable. All the data remains on the host computer. Just backup the host computer, you are sure not to loose anything (sources, databases, configuration files...). 
+Did the VM crashed because you messed up with it? Just destroy it and restart it. You're good to go in no time.
 
-You may adapt the services configuration (like PHP) according to your needs. Just edit the `vagrant-lamp/cookbooks/lamp/templates/default/php.ini.erb`, issue a `vagrant provision` and you're good to go.
+You may adapt the services configuration (like PHP for example) according to your needs. Just edit the [php.ini.erb](https://github.com/axeloz/vagrant-lamp/blob/master/cookbooks/lamp/templates/default/php.ini.erb) file, issue a `vagrant provision` and you're good to go.
 
-For your team, it guaranties that all developers are using the exact same environment. Plus you get rid of the pain of installing a Linux environment from scratch. Let's say a new developer joins the team, he's ready to code in minutes.
-Finally, the team members can run a `vagrant provision` in order to apply any recipe update if applicable. Let's say the lead developer adds a new tool in the recipes, this will be deployed for the entire team in no time.
+For your team, it guaranties that all developers are using the exact same environment. Plus you get rid of the pain of installing a Linux environment from scratch. Let's say that a new developer joins the team, he's ready to dig into your projects in no time.
+Finally, the team members can run a `vagrant provision` in order to apply any recipe update if applicable. This is very convenient when the lead developer adds a new tool in the recipes, it can be deployed for the entire team with no hassle.
 
 ### ⚠ Attention ⚠
 
-You must understand that you can do whatever you want with the Vagrant Virtual Machine (or VM) like adding files, removing anything, installing new applications using APT or compilation. But be aware that the VM is not supposed to be persistent. The persistent data **are and should remain on your host computer**. The VM is throwable, you may mess with it, crash it, remove it and recreate it brand as new. It is that simple as `vagrant destroy && vagrant up`.
+You must understand that the VM is meant to be disposable, it is not supposed to be persistent. Any persistent data **should remain on your host computer**, do not apply changes to the VM nor store data or documents that you don't want to loose. 
+
+As a consequence, you may mess up with the VM, do heavy testing, install new apps to evaluate them and even crash it. If you need to rollback, just destroy it and recreate it as pure as the driven snow. It is as simple as a `vagrant destroy && vagrant up`.
 
 
 ## Content of the starter kit
