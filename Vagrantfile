@@ -36,7 +36,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 8081, host: 8081
   config.vm.network "forwarded_port", guest: 8082, host: 8082
   # MySQL port
-  config.vm.network "forwarded_port", guest: 3307, host: 3306
+  config.vm.network "forwarded_port", guest: 3306, host: 3307
   # Postfix SMTP port
   config.vm.network "forwarded_port", guest: 25, host: 2525
   # Mailcatcher SMTP port
