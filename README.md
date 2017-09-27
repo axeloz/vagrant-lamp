@@ -3,7 +3,7 @@
 
 ## Description
 
-This repository contains a starter kit providing a fully fonctional **Ubuntu Server 16.04 LTS** (headless) LAMP local development environment on top of Vagrant.
+This repository contains a starter kit providing a fully functional **Ubuntu Server 16.04 LTS** (headless) LAMP local development environment on top of Vagrant.
 
 This starter kit uses a virtualization application (**VirtualBox**), a virtualization wrapper (**Vagrant**) and a recipes manager (**Chef Solo**). See "[Installation](#installation)" below.
 
@@ -18,7 +18,7 @@ More tools can be added very easily if you need to. Just edit the [recipe](https
 The VM is disposable. All the data remains on the host computer. Just backup the host computer, you are sure not to loose anything (sources, databases, configuration files...). 
 Did the VM crashed because you messed up with it? Just destroy it and restart it. You're good to go in no time.
 
-You may adapt the services configuration (like PHP for example) according to your needs. Just edit the [php.ini.erb](https://github.com/axeloz/vagrant-lamp/blob/master/cookbooks/lamp/templates/default/php.ini.erb) file, issue a `vagrant provision` and you're good to go.
+You may adapt the services configuration (like PHP for example) according to your needs. Just edit the [php.ini.erb](https://github.com/axeloz/vagrant-lamp/blob/master/cookbooks/lamp/templates/default/php.ini.erb) file, run a `vagrant provision` and you're good to go.
 
 For your team, it guaranties that all developers are using the exact same environment. Plus you get rid of the pain of installing a Linux environment from scratch. Let's say that a new developer joins the team, he's ready to dig into your projects in no time.
 Finally, the team members can run a `vagrant provision` in order to apply any recipe update if applicable. This is very convenient when the lead developer adds a new tool in the recipes, it can be deployed for the entire team with no hassle.
@@ -114,7 +114,7 @@ In order to upgrade, just:
 - To sudo in the VM, just run `sudo <command>`. The `vagrant` user belongs to the sudoers and you may `sudo` with no password asked
 - The IP address `192.168.99.100` is created by VM
 - The VM is also available on hostname `localhost`
-- In order to acccess your local websites: http://localhost:8080
+- In order to access your local websites: http://localhost:8080
 - In order to access Mailcatcher: http://localhost:1080
 - In order to access to MariaDB: mysql://vagrant:vagrant@localhost:3307
 - In order to access the Mailcatcher's SMTP from the host: smtp://localhost:1025
@@ -133,7 +133,7 @@ There is an existing Unix user:
 - login: vagrant
 - password: vagrant
 
-The SSH identity forwarding is enabled from the host to the VM (`config.ssh.forward_agent = true`). This means that your host's computer SSH identity is forwarded to the VM. That may be useful in many case. For example, you clone a Github repository to your host computer using the host's SSH public key attached to your Github account. With the identify forwarding enabled, you can SSH to the VM, `cd` to the downloaded repository and issue a `git pull`. It will use your host computer's keypair. There is no need to add a new public key on your Github account.
+The SSH identity forwarding is enabled from the host to the VM (`config.ssh.forward_agent = true`). This means that your host's computer SSH identity is forwarded to the VM. That may be useful in many cases. For example, you clone a Github repository to your host computer using the host's SSH public key attached to your Github account. With the identify forwarding enabled, you can SSH to the VM, `cd` to the downloaded repository and run a `git pull`. It will use your host computer's keypair. There is no need to add a new public key on your Github account.
 
 ### Apache
 
@@ -141,7 +141,7 @@ The SSH identity forwarding is enabled from the host to the VM (`config.ssh.forw
 Your local environment is available from your host computer at the address: http://localhost:8080. This will launch a default application that will:
 - list all your projects 
 - show the PHP configuration
-- show the server informations
+- show the server information
 
 The default document root is: `/vagrant/www`
 
@@ -149,11 +149,11 @@ The default document root is: `/vagrant/www`
 
 In some cases, you might need to create a dedicated virtual host to access your projects. For example: http://myproject.local:8080. 
 
-For Mac and Unix systems: in order to do so, the script [create-vhost.sh](https://github.com/axeloz/vagrant-lamp/blob/master/create-vhost.sh) is provided. Make sure it is executable (`chmod +x create-vhost.sh`) and run it from the **host** (`./create-vhost.sh`). Just follow the instructions, the script will then create an entry into the `/etc/hosts` file and will add the virtual host to Apache into the `vagrant-lamp/apache/conf` folder. Finally it will reload Apache. 
+For Mac and Unix systems: in order to do so, the script [create-vhost.sh](https://github.com/axeloz/vagrant-lamp/blob/master/create-vhost.sh) is provided. Make sure it is executable (`chmod +x create-vhost.sh`) and run it from the **host** (`./create-vhost.sh`). Just follow the instructions, the script will then create an entry into the `/etc/hosts` file and will add the virtual host to Apache into the `vagrant-lamp/apache/conf` folder. Finally, it will reload Apache. 
 
 In any case: you can also do it manually by creating the Apache virtual host configuration file into the `vagrant-lamp/apache/conf`. Attention: the file must be named with a `.conf` suffix. 
 You must also add manually an entry into the computer's `hosts` file. 
-Finally you must reload Apache on the VM machine using `service apache2 reload`.
+Finally, you must reload Apache on the VM machine using `service apache2 reload`.
 
 #### Mailcatcher test form
 
@@ -190,7 +190,7 @@ Please refer to the chapter [File changes watcher](#file-changes-watcher)".
 
 ### Issues at boot time
 
-You may encounter some issues at boot time. I'm still unsure why as it works on my Mac but I have seen it fail occasionnally on other computers. 
+You may encounter some issues at boot time. I'm still unsure why as it works on my Mac but I have seen it fail occasionally on other computers. 
 
 - issue with APT: there seem to be a conflict when the Ubuntu box starts automatically an `apt-get upgrade` command after boot. It prevents the Chef recipe to also call the `apt` command as there can be only one upgrade process at a time. I tried to disable the automatic upgrade on the box. Let me know if this occurs.
 - issue with MariaDB: for some reasons, the permissions on the `/var/run/mysqld` folder are incorrect despite I fix them during the recipes. As a consequence, MariaDB refuses to boot. To fix manually, SSH to the VM, run a `chown -R vagrant:vagrant /var/run/mysqld` command and try restarting MariaDB. Let me know if this occurs to you or if you know how to fix this once for all.
@@ -200,7 +200,13 @@ For any other unlisted issue, please add a ticket on Github: https://github.com/
 
 ### Mailcatcher
 
-Mailcatcher is supposed to be started when the VM boots. For some reason, this is not always the case. In order to start Mailcatcher manually, do SSH to the VM and issue a `killall mailcatcher && mailcatcher --no-quit --ip 0.0.0.0`
+Mailcatcher is supposed to be started when the VM boots. For some reason, this is not always the case. In order to start Mailcatcher manually, SSH to the VM and run a `killall mailcatcher && mailcatcher --no-quit --ip 0.0.0.0`
 
 ### File changes watcher
-Because of VirtualBox, the `watch` command (for Laravel for example) may not work as expected. The `watch` command is running on the VM but the source files are located on the host computer and mounted using NFS. The `watch` command cannot therefore use default Unix feature. You should use the `watch-poll` command instead (for Laraval). You may have similar issues with `gulp watch` or `browsersync`.
+
+When you run a file changes watcher on the VM, the `watch` command is running on the VM but the watched files are located on the host computer and mounted using NFS on the VM. For this reason, the watcher does not always catch file changes properly. I tried to fix this issue, let me know if you come accross this matter.
+
+
+## Contributing
+
+You are welcome to help and contribute to this repository.
