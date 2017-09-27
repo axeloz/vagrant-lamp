@@ -178,11 +178,23 @@ The MariaDB log files are located into the `vagrant-lamp/mysql/logs`
 
 ### Gulp
 
+Please check the chapter "File changes watcher".
+
 ## Questions / Know issues
+
+### Issues on boot
+
+You may encounter some issues at boot time. I'm still not sure why as it works on my Mac but I have seen it fail occasionnally on other computers. 
+
+- issue with APT: there seem to be a conflict when the Ubuntu box starts automatically an `apt-get upgrade` command after boot. It prevents the Chef recipe to also call the `apt` command as there can be only one upgrade process at a time. I tried to disable the automatic upgrade on the box. Let me know if this occurs.
+- issue with MariaDB: for some reasons, the permissions on the `/var/run/mysqld` folder are incorrect despite I fix them during the recipes. As a consequence, MariaDB refuses to boot. To fix manually, SSH to the VM, run a `chown -R vagrant:vagrant /var/run/mysqld` command and try restarting MariaDB. Let me know if this occurs to you or if you know how to fix this once for all.
+- issue with port forwarding: Vagrant will create port forwarding between the host and the VM services. If a port is already in use on the host, booting the VM might fail. To fix, you can either stop the service on the host computer or change the host's port in the `Vagrantfile.
+
+For any other unlisted issue, please add a ticket on Github: https://github.com/axeloz/vagrant-lamp/issues
 
 ### Mailcatcher
 
 Mailcatcher is supposed to be started when the VM boots. For some reason, this is not always the case. In order to start Mailcatcher manually, do SSH to the VM and issue a `killall mailcatcher && mailcatcher --no-quit --ip 0.0.0.0`
 
-### Files watching
+### File changes watcher
 Because of VirtualBox, the `watch` command (for Laravel for example) may not work as expected. The `watch` command is running on the VM but the source files are located on the host computer and mounted using NFS. The `watch` command cannot therefore use default Unix feature. You should use the `watch-poll` command instead (for Laraval). You may have similar issues with `gulp watch` or `browsersync`.
