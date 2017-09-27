@@ -10,9 +10,14 @@ function success {
 
 currentdir=`pwd`
 
-echo
-echo "= APPLICATION CONFIGURATION ="
-echo
+
+
+who=`whoami`
+if [ "$who" = "vagrant" ]
+then
+	error "This script is supposed to be run from the host, not from the guest"
+	exit 1
+fi
 
 # Checking whether /etc/hosts file exists
 if [ ! -f "/etc/hosts" ]
@@ -23,6 +28,11 @@ else
 	success "We have detected the following path for the Vagrant root:"
 	success " > $currentdir"
 fi
+
+
+echo
+echo "= APPLICATION CONFIGURATION ="
+echo
 
 
 # Checking Vagrant root path
