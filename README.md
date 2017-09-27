@@ -7,13 +7,13 @@ This repository provides a starter kit that you to download in order to get a fu
 
 In order to do so, the starter kit uses a virtualization application (**VirtualBox**), a virtualization wrapper (**Vagrant**) and a recipes manager (**Chef Solo**). See "Installation" below.
 
-The Vagrant Virtual Machine (or VM) will run on Ubuntu Server. The **box image used was created by me**. It is hosted on VagrantUp as `axeloz/ubuntu-server-16.04` (https://app.vagrantup.com/axeloz/boxes/ubuntu-server-16.04). It is a clean install of Ubuntu with just a little bit of configuration in it. You may change the box used by Vagrant and use your own by editing the `config.vm.box` setting into the `Vagrantfile` at the root of this repository.
+The Vagrant Virtual Machine (or VM) will run on Ubuntu Server. The **box image used was created by me**. It is hosted on VagrantUp as `axeloz/ubuntu-server-16.04` (https://app.vagrantup.com/axeloz/boxes/ubuntu-server-16.04). It is a clean install of Ubuntu with just a little bit of configuration in it. You may change the box used by Vagrant and use your own (at your own risks) by editing the `config.vm.box` setting into the `Vagrantfile` at the root of this repository.
 
 Using one command only, a LAMP environment is installed on your computer among all the required tools for your developments. The Vagrant Virtual Machine (or VM) can be stopped when you don't need it and started when you need it.
 
 ### ⚠ Attention ⚠
 
-You must understand that you can do whatever you want with the Vagrant Virtual Machine (or VM) like adding files, removing anything, installation new applications using APT or compilation. But be aware that the VM is not supposed to be persistent. The persistent data **are and should remain on your host computer**. The VM is throwable, you may mess with it, crash it, remove it and recreate it brand as new. It is that simple as `vagrant destroy && vagrant up`.
+You must understand that you can do whatever you want with the Vagrant Virtual Machine (or VM) like adding files, removing anything, installing new applications using APT or compilation. But be aware that the VM is not supposed to be persistent. The persistent data **are and should remain on your host computer**. The VM is throwable, you may mess with it, crash it, remove it and recreate it brand as new. It is that simple as `vagrant destroy && vagrant up`.
 
 
 ## Content of the environment
