@@ -160,7 +160,7 @@ Finally, you must reload Apache on the VM machine using `service apache2 reload`
 This starter kit comes with a homemade projects browser. To access this browser, simply visit http://localhost:8080 from your host Web browser. 
 The project browser will show the content of the `/vagrant/www` directory and allow you to navigate into the subfolders. 
 
-[The projects browser](https://github.com/axeloz/vagrant-lamp/raw/master/screenshot.png)
+![The projects browser](https://github.com/axeloz/vagrant-lamp/raw/master/screenshot.png)
 
 #### Mailcatcher test form
 
