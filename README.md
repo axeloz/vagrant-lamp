@@ -46,7 +46,7 @@ You must understand that you can do whatever you want with the Vagrant Virtual M
     - Sqlite3
     - Memcached
 - Mailcatcher (https://mailcatcher.me/)
-- MariaDB (https://mariadb.org/)
+- MariaDB (MySQL) (https://mariadb.org/)
 - Memcached (http://www.memcached.org/)
 - MongoDB (https://www.mongodb.com/)
 - Multitail (https://www.vanheusden.com/multitail/)
@@ -100,7 +100,7 @@ In order to upgrade, just:
 - The VM is also available on hostname `localhost`
 - In order to acccess your local websites: http://localhost:8080
 - In order to access Mailcatcher: http://localhost:1080
-- In order to access to MariaDB: mysql://vagrant:vagrant@localhost:3306
+- In order to access to MariaDB: mysql://vagrant:vagrant@localhost:3307
 - In order to access the Mailcatcher's SMTP from the host: smtp://localhost:1025
 - In order to access BrowserSync from the host: http://localhost:3000
 - In order to use Drush, run the `drush` command from the VM
@@ -108,7 +108,16 @@ In order to upgrade, just:
 - In order to use DEPLOYER, run the `dep` command from the VM
 - In order to use GULP, run the `gulp` command from the VM
 
-## The tools in detail
+## The features in detail
+
+### SSH
+
+You may access the VM using SSH using the `vagrant ssh` command. 
+There is an existing Unix user:
+- login: vagrant
+- password: vagrant
+
+The SSH identity forwarding is enabled from the host to the VM (`config.ssh.forward_agent = true`). This means that your host's computer SSH identity is forwarded to the VM. That may be useful in many case. For example, you clone a Github repository to your host computer using the host's SSH public key attached to your Github account. With the identify forwarding enabled, you can SSH to the VM, `cd` to the downloaded repository and issue a `git pull`. It will use your host computer's keypair. There is no need to add a new public key on your Github account.
 
 ### Apache
 
@@ -138,7 +147,10 @@ The Apache log files are located into the `vagrant-lamp/apache/logs` folder.
 
 ### MariaDB (MySQL)
 
-#### Database user
+#### Access
+
+MariaDB is running on port 3306 on the VM. 
+There is a port redirection from the host to the VM: 3307 -> 3306. 
 
 The root user for MariaDB is:
 - login: vagrant
@@ -155,6 +167,10 @@ The MariaDB log files are located into the `vagrant-lamp/mysql/logs`
 ### Gulp
 
 ## Questions / Know issues
+
+### Mailcatcher
+
+Mailcatcher is supposed to be started when the VM boots. For some reason, this is not always the case. In order to start Mailcatcher manually, do SSH to the VM and issue a `killall mailcatcher && mailcatcher --no-quit --ip 0.0.0.0`
 
 ### Files watching
 Because of VirtualBox, the `watch` command (for Laravel for example) may not work as expected. The `watch` command is running on the VM but the source files are located on the host computer and mounted using NFS. The `watch` command cannot therefore use default Unix feature. You should use the `watch-poll` command instead (for Laraval). You may have similar issues with `gulp watch` or `browsersync`.
