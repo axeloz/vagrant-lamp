@@ -163,6 +163,12 @@ You may also access the http://localhost:8080/mail.php page. This is a test form
 
 The Apache log files are located into the `vagrant-lamp/apache/logs` folder.
 
+### PHP
+
+#### Log files
+
+PHP log files are located into the `vagrant-lamp/php/logs` folder.
+
 ### Projects browser
 
 This starter kit comes with a homemade projects browser. To access this browser, simply visit http://localhost:8080 from your host Web browser. 
@@ -217,7 +223,6 @@ Mailcatcher is supposed to be started when the VM boots. For some reason, this i
 ### File changes watcher
 
 When you run a file changes watcher on the VM, the `watch` command is running on the VM but the watched files are located on the host computer and mounted using NFS on the VM. For this reason, the watcher does not always catch file changes properly. I tried to fix this issue, let me know if you come accross this matter.
-
 
 ## Contributing
 
