@@ -140,10 +140,7 @@ The SSH identity forwarding is enabled from the host to the VM (`config.ssh.forw
 ### Apache
 
 #### Access
-Your local environment is available from your host computer at the address: http://localhost:8080. This will launch a default application that will:
-- list all your projects 
-- show the PHP configuration
-- show the server information
+Your local environment is available from your host computer at the address: http://localhost:8080. This will launch the [projects browser](#projects-browser).
 
 The default document root is: `/vagrant/www`
 
@@ -160,7 +157,12 @@ Finally, you must reload Apache on the VM machine using `service apache2 reload`
 #### Projects browser
 
 This starter kit comes with a homemade projects browser. To access this browser, simply visit http://localhost:8080 from your host Web browser. 
-The project browser will show the content of the `/vagrant/www` directory and allow you to navigate into the subfolders. 
+The project browser will show the content of the `/vagrant/www` directory and allow you to navigate into the subfolders. Its features:
+- lists all your projects
+- browses through the subfolders
+- detects `index.*` files
+- shows the PHP configuration
+- shows the server information
 
 ![The projects browser](https://github.com/axeloz/vagrant-lamp/raw/master/screenshot.png)
 
