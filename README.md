@@ -160,10 +160,6 @@ Finally, you must reload Apache on the VM machine using `service apache2 reload`
 
 The Apache log files are located into the `vagrant-lamp/apache/logs` folder.
 
-#### Mailcatcher test form
-
-You may also access the http://localhost:8080/mail.php page. This is a test form allowing you to test the Mailcatcher application.
-
 ### PHP
 
 #### Log files
@@ -181,6 +177,10 @@ The project browser will show the content of the `/vagrant/www` directory and al
 - shows the server information
 
 ![The projects browser](https://github.com/axeloz/vagrant-lamp/raw/master/screenshot.png)
+
+#### Mailcatcher test form
+
+You may also access the http://localhost:8080/mail.php page. This is a test form allowing you to test the Mailcatcher application.
 
 ### MariaDB (MySQL)
 
