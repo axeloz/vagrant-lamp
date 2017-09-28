@@ -18,18 +18,18 @@ More tools can be added very easily if you need to. Just edit the [recipe](https
 The VM is disposable. All the data remains on the host computer. Just backup the host computer, you are sure not to loose anything (sources, databases, configuration files...). 
 Did the VM crashed because you messed up with it? Just destroy it and restart it. You're good to go in no time.
 
-You may adapt the services configuration (like PHP for example) according to your needs. Just edit the [php.ini.erb](https://github.com/axeloz/vagrant-lamp/blob/master/cookbooks/lamp/templates/default/php.ini.erb) file, run a `vagrant provision` and you're good to go.
+You may adapt the services configuration according to your needs. For PHP for example, just edit the [php.ini.erb](https://github.com/axeloz/vagrant-lamp/blob/master/cookbooks/lamp/templates/default/php.ini.erb) file, run a `vagrant provision` and you're good to go.
 
 For your team, it guaranties that all developers are using the exact same environment. Plus you get rid of the pain of installing a Linux environment from scratch. Let's say that a new developer joins the team, he's ready to dig into your projects in no time.
-Finally, the team members can run a `vagrant provision` in order to apply any recipe update if applicable. This is very convenient when the lead developer adds a new tool in the recipes, it can be deployed for the entire team with no hassle.
+Finally, you can deploy changes for your entire team with no hassle. This is very convenient when the lead developer adds a new tool in the recipes.
 
 ### ⚠ Attention ⚠
 
 You must understand that the VM is meant to be disposable, it is not supposed to be persistent. Any persistent data **should remain on your host computer**, do not apply changes to the VM nor store data or documents that you don't want to loose. 
 
-As a consequence, you may mess up with the VM, do heavy testing, install new apps to evaluate them and even crash it. If you need to rollback, just destroy it and recreate it as pure as the driven snow. It is as simple as a `vagrant destroy && vagrant up`.
+As a consequence, you may mess up with the VM, do heavy testing, install new apps to evaluate them and even crash it. If you need to rollback, just destroy it and recreate it as pure as the driven snow but with all your data (sources, databases and configuration intact). It is as simple as a `vagrant destroy && vagrant up`.
 
-Also this starter kit was tested and used on a Apple computer. It supposed on any system but this is **untested**. 
+Also this starter kit was tested and used on a Apple computer. It supposed to work on any system but this is **untested**. 
 Let me know if you encounter any issue.
 
 ## Content of the starter kit
@@ -76,6 +76,8 @@ Let me know if you encounter any issue.
 - WP_Cli (http://wp-cli.org/)
 - XDebug (https://xdebug.org/)
 
+Need more tools? See [Contributing](#contributing)
+
 ## Installation
 
 - Download and install VirtualBox (http://www.virtualbox.org/)
@@ -116,7 +118,7 @@ In order to upgrade, just:
 - The VM is also available on hostname `localhost`
 - In order to access your local websites: http://localhost:8080
 - In order to access Mailcatcher: http://localhost:1080
-- In order to access to MariaDB: mysql://vagrant:vagrant@localhost:3307
+- In order to access to MariaDB: mysql://vagrant:vagrant@localhost:3307 from the host. Use mysql://vagrant:vagrant@localhost:3306 from the VM.
 - In order to access the Mailcatcher's SMTP from the host: smtp://localhost:1025
 - In order to access BrowserSync from the host: http://localhost:3000
 - In order to use Drush, run the `drush` command from the VM
@@ -154,14 +156,13 @@ In any case: you can also do it manually by creating the Apache virtual host con
 You must also add manually an entry into the computer's `hosts` file. 
 Finally, you must reload Apache on the VM machine using `service apache2 reload`.
 
+#### Log files
+
+The Apache log files are located into the `vagrant-lamp/apache/logs` folder.
 
 #### Mailcatcher test form
 
 You may also access the http://localhost:8080/mail.php page. This is a test form allowing you to test the Mailcatcher application.
-
-#### Log files
-
-The Apache log files are located into the `vagrant-lamp/apache/logs` folder.
 
 ### PHP
 
@@ -194,7 +195,7 @@ The root user for MariaDB is:
 
 #### Data location
 
-As usual, the MariaDB data are located on the host computer into the `vagrant-lamp/mysql/data` folder. 
+The MariaDB data are located on the host computer into the `vagrant-lamp/mysql/data` folder. 
 
 #### MariaDB logs
 
@@ -218,12 +219,15 @@ For any other unlisted issue, please add a ticket on Github: https://github.com/
 
 ### Mailcatcher
 
-Mailcatcher is supposed to be started when the VM boots. For some reason, this is not always the case. In order to start Mailcatcher manually, SSH to the VM and run a `killall mailcatcher && mailcatcher --no-quit --ip 0.0.0.0`
+Mailcatcher may not be started properly during the VM's reboot. In order to start Mailcatcher manually, SSH to the VM and run a `killall mailcatcher && mailcatcher --no-quit --ip 0.0.0.0`
+I will try to fix this real soon.
 
-### File changes watcher
+### Files watcher
 
-When you run a file changes watcher on the VM, the `watch` command is running on the VM but the watched files are located on the host computer and mounted using NFS on the VM. For this reason, the watcher does not always catch file changes properly. I tried to fix this issue, let me know if you come accross this matter.
+When you run a files watcher on the VM, the `watch` command is running on the VM but the watched files are located on the host computer and mounted using NFS on the VM. For this reason, the watcher does not always catch file changes properly. I tried to fix this issue, let me know if you come accross this matter.
+
+For example for Laravel, the `npm run watch` command doesn't seem to work properly. Use `npm run watch-poll` instead. 
 
 ## Contributing
 
-You are welcome to help and contribute to this repository.
+You are welcome to help and contribute to this repository. You can create pull requests. 
