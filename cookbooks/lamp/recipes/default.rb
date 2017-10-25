@@ -53,17 +53,16 @@ package 'php7.0-sqlite3'
 package 'memcached'
 package 'php-memcached'
 
+service 'memcached' do
+  action [:enable, :start]
+end
+
 
 #####################################
 # APACHE
 #####################################
 package 'apache2'
 package 'libapache2-mod-php7.0'
-
-service 'apache2' do
-  supports :status => true
-  action [:enable, :start]
-end
 
 template '/etc/apache2/conf-enabled/users.conf' do
   source 'users.conf'
@@ -85,15 +84,21 @@ execute 'enable_modrewrite' do
 	creates '/etc/apache2/mods-enabled/rewrite.load'
 end
 
+service 'apache2' do
+  supports :start => true, :stop => true, :restart => true, :reload => true, :status => true
+  action [:enable, :reload]
+end
+
 #####################################
 # GIT
 #####################################
 package 'python-software-properties'
 
-execute 'add_git_core_ppa' do
-	user 'root'
-	command 'add-apt-repository ppa:git-core/ppa && apt-get update'
-	creates '/usr/bin/git-lfs'
+apt_repository 'git-core' do
+	action :add
+	uri 'ppa:git-core/ppa'
+	distribution node['lsb']['codename']
+	cache_rebuild true
 end
 
 execute 'install_git_repo' do
@@ -106,7 +111,6 @@ package 'git'
 package 'git-lfs'
 
 
-
 #####################################
 # COMPOSER
 #####################################
@@ -115,6 +119,7 @@ execute 'install_composer' do
 	command 'curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer'
 	creates '/usr/local/bin/composer'
 end
+
 
 #####################################
 # MYSQL
@@ -131,19 +136,16 @@ template '/etc/mysql/mariadb.conf.d/50-server.cnf' do
   source 'mysql-50-server.cnf'
 end
 
-service 'mysql' do
-  supports :start => true, :stop => true, :restart => true, :reload => true, :status => true
-  action :restart
+directory '/var/run/mysqld' do
+	action :create
+	owner 'vagrant'
+	group 'vagrant'
+	mode '0775'
 end
 
-bash 'mysql_run_perms' do
-	user 'root'
-	code <<-EOH
-		if [ ! -d /var/run/mysqld ]; then
-			mkdir /var/run/mysqld
-		fi
-		chown -R vagrant:vagrant /var/run/mysqld
-	EOH
+service 'mysql' do
+  supports :start => true, :stop => true, :restart => true, :reload => true, :status => true
+  action [:enable, :reload]
 end
 
 execute 'mysql_create_databases' do
@@ -170,32 +172,28 @@ execute 'install_nodejs' do
 end
 package 'nodejs'
 
+
 #####################################
 # MAILCATCHER
 #####################################
 package 'bundler'
 package 'libsqlite3-dev'
+gem_package 'mailcatcher'
 
-execute 'install_mailcatcher' do
-	user 'root'
-	command 'gem install mailcatcher'
-	creates '/usr/local/bin/mailcatcher'
+user 'mailcatcher' do
+  comment 'The mailcatcher user'
+  system true
+  action :create
 end
 
 template '/etc/init.d/mailcatcher' do
   source 'mailcatcher'
 end
 
-user 'mailcatcher' do
-  comment                    'The mailcatcher user'
-  system                     true
-  action                     :create
-end
-
-execute 'mailcatcher_script_executable' do
-	user 'root'
-	command 'chmod +x /etc/init.d/mailcatcher'
-	not_if 'test -x /etc/init.d/mailcatcher'
+file '/etc/init.d/mailcatcher' do
+	mode '0755'
+	owner 'root'
+	group 'root'
 end
 
 service 'mailcatcher' do
@@ -245,6 +243,7 @@ bash 'install_drupal_console' do
 	creates '/usr/local/bin/drupal'
 end
 
+
 #####################################
 # BROWSER SYNC
 #####################################
@@ -253,6 +252,7 @@ execute 'install_browsersync' do
 	command 'npm install -g browser-sync'
 	creates '/usr/bin/browser-sync'
 end
+
 
 #####################################
 # NPM
@@ -263,6 +263,7 @@ execute 'install_gulp' do
 	creates '/usr/bin/npm'
 end
 
+
 #####################################
 # BOWER
 #####################################
@@ -272,41 +273,35 @@ execute 'install_bower' do
 	creates '/usr/bin/bower'
 end
 
-#####################################
-# Deployer
-#####################################
-bash 'install_deployer' do
-	code <<-EOH
-		/usr/bin/env curl -sLO https://deployer.org/deployer.phar
-		if [ $? -eq 0 ] && [ -f "deployer.phar" ]; then
-			chmod +x deployer.phar
-			mv deployer.phar /usr/local/bin/dep
-		fi
-	EOH
-	creates '/usr/local/bin/dep'
-end
 
 #####################################
 # REDIS
 #####################################
 package 'redis-server'
 service 'redis-server' do
-	action :stop
+	action [:enable, :start]
 end
+
 
 #####################################
 # MONGODB
 #####################################
 package 'mongodb'
 service 'mysql' do
-  action :stop
+  action [:enable, :start]
 end
+
+
+#####################################
+# SUPERVISOR
+#####################################
+package 'supervisor'
+service 'supervisor' do
+  action [:enable, :start]
+end
+
 
 #####################################
 # SASS
 #####################################
-execute 'install_sass' do
-	user 'root'
-	command 'gem install sass'
-	creates '/usr/local/bin/sass'
-end
+gem_package 'sass'
