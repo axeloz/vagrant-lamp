@@ -217,11 +217,6 @@ You may encounter some issues at boot time. I'm still unsure why as it works on 
 
 For any other unlisted issue, please add a ticket on Github: https://github.com/axeloz/vagrant-lamp/issues
 
-### Mailcatcher
-
-Mailcatcher may not be started properly during the VM's reboot. In order to start Mailcatcher manually, SSH to the VM and run a `killall mailcatcher && mailcatcher --no-quit --ip 0.0.0.0`
-I will try to fix this real soon.
-
 ### Files watcher
 
 When you run a files watcher on the VM, the `watch` command is running on the VM but the watched files are located on the host computer and mounted using NFS on the VM. For this reason, the watcher does not always catch file changes properly. I tried to fix this issue, let me know if you come accross this matter.
