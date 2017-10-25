@@ -182,14 +182,32 @@ execute 'install_mailcatcher' do
 	creates '/usr/local/bin/mailcatcher'
 end
 
-bash 'start_mailcatcher' do
-	user 'root'
-	code <<-EOH
-		killall mailcatcher
-		mailcatcher --no-quit --ip 0.0.0.0
-	EOH
+template '/etc/init.d/mailcatcher' do
+  source 'mailcatcher'
 end
 
+execute 'create_mailcatcher_user' do
+	user 'root'
+	command 'useradd -M -r mailcatcher'
+	not_if 'cat /etc/passwd |grep mailcatcher'
+end
+
+execute 'mailcatcher_script_executable' do
+	user 'root'
+	command 'chmod +x /etc/init.d/mailcatcher'
+	not_if 'test -x /etc/init.d/mailcatcher'
+end
+
+execute 'adding_mailcatcher_boot' do
+	user 'root'
+	command 'update-rc.d mailcatcher defaults'
+	not_if 'ls /etc/rc0.d/ |grep mailcatcher'
+end
+
+execute 'starting_mailcatcher' do
+	user 'root'
+	command 'service mailcatcher start'
+end
 
 #####################################
 # WP_CLI
