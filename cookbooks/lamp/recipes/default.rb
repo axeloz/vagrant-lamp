@@ -186,10 +186,10 @@ template '/etc/init.d/mailcatcher' do
   source 'mailcatcher'
 end
 
-execute 'create_mailcatcher_user' do
-	user 'root'
-	command 'useradd -M -r mailcatcher'
-	not_if 'cat /etc/passwd |grep mailcatcher'
+user 'mailcatcher' do
+  comment                    'The mailcatcher user'
+  system                     true
+  action                     :create
 end
 
 execute 'mailcatcher_script_executable' do
@@ -198,15 +198,8 @@ execute 'mailcatcher_script_executable' do
 	not_if 'test -x /etc/init.d/mailcatcher'
 end
 
-execute 'adding_mailcatcher_boot' do
-	user 'root'
-	command 'update-rc.d mailcatcher defaults'
-	not_if 'ls /etc/rc0.d/ |grep mailcatcher'
-end
-
-execute 'starting_mailcatcher' do
-	user 'root'
-	command 'service mailcatcher start'
+service 'mailcatcher' do
+	action [:enable, :start]
 end
 
 #####################################
