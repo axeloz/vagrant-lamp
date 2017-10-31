@@ -11,7 +11,6 @@ function success {
 currentdir=`pwd`
 
 
-
 who=`whoami`
 if [ "$who" = "vagrant" ]
 then
@@ -19,20 +18,20 @@ then
 	exit 1
 fi
 
+
 # Checking whether /etc/hosts file exists
 if [ ! -f "/etc/hosts" ]
 then
 	error "Could not find the /etc/hosts file. I must abort..."
 	exit 1
-else
-	success "We have detected the following path for the Vagrant root:"
-	success " > $currentdir"
 fi
-
 
 echo
 echo "= APPLICATION CONFIGURATION ="
 echo
+
+success "We have detected the following path for the Vagrant root:"
+success " > $currentdir"
 
 
 # Checking Vagrant root path

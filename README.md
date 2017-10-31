@@ -46,7 +46,7 @@ Let me know if you encounter any issue.
 - Git (https://git-scm.com/)
 - Git-LFS (https://git-lfs.github.com)
 - Gulp (http://gulpjs.com/)
-- PHP7 (http://www.php.net) :
+- PHP7.1 (http://www.php.net) :
     - CURL
     - Dev
     - GD
@@ -61,6 +61,9 @@ Let me know if you encounter any issue.
     - Zip
     - Sqlite3
     - Memcached
+    - Redis
+    - GeoIP
+    - GMP
 - Mailcatcher (https://mailcatcher.me/)
 - MariaDB (MySQL) (https://mariadb.org/)
 - Memcached (http://www.memcached.org/)

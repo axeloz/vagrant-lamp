@@ -8,6 +8,7 @@ apt_update 'all platforms' do
   action :periodic
 end
 
+
 #####################################
 # VARIOUS TOOLS
 #####################################
@@ -18,6 +19,8 @@ package 'apt-transport-https'
 package 'build-essential'
 package 'curl'
 package 'unzip'
+package 'lsb-release'
+package 'ca-certificates'
 
 #####################################
 # NTPDATE
@@ -31,27 +34,39 @@ end
 #####################################
 # PHP
 #####################################
-package 'php7.0'
-package 'php7.0-curl'
-package 'php7.0-dev'
-package 'php7.0-gd'
-package 'php7.0-json'
-package 'php7.0-mysql'
-package 'php7.0-readline'
-package 'php7.0-xml'
-package 'php7.0-intl'
-package 'php7.0-mbstring'
-package 'php7.0-mcrypt'
+
+apt_repository 'php7' do
+	action :add
+	uri 'ppa:ondrej/php'
+	distribution node['lsb']['codename']
+	cache_rebuild true
+end
+
+package 'php7.1'
+package 'php7.1-curl'
+package 'php7.1-dev'
+package 'php7.1-gd'
+package 'php7.1-json'
+package 'php7.1-mysql'
+package 'php7.1-readline'
+package 'php7.1-xml'
+package 'php7.1-intl'
+package 'php7.1-mbstring'
+package 'php7.1-mcrypt'
 package 'php-xdebug'
-package 'php7.0-zip'
-package 'php7.0-sqlite3'
+package 'php7.1-zip'
+package 'php7.1-sqlite3'
+package 'php7.1-msgpack'
+package 'php7.1-gmp'
+package 'php7.1-geoip'
+package 'php7.1-redis'
 
 
 #####################################
 # MEMCACHE
 #####################################
 package 'memcached'
-package 'php-memcached'
+package 'php7.1-memcached'
 
 service 'memcached' do
   action [:enable, :start]
@@ -62,7 +77,7 @@ end
 # APACHE
 #####################################
 package 'apache2'
-package 'libapache2-mod-php7.0'
+package 'libapache2-mod-php7.1'
 
 template '/etc/apache2/conf-enabled/users.conf' do
   source 'users.conf'
@@ -70,11 +85,10 @@ end
 
 template '/etc/apache2/sites-enabled/000-default.conf' do
   source 'apache-000_default.conf.erb'
-  notifies :restart, "service[apache2]"
   manage_symlink_source true
 end
 
-template '/etc/php/7.0/apache2/php.ini' do
+template '/etc/php/7.1/apache2/php.ini' do
   source 'php.ini.erb'
 end
 
