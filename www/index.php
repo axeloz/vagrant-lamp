@@ -37,7 +37,7 @@ $title = explode('/', $path);
 		<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 
 		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://bootswatch.com/darkly/bootstrap.min.css" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css" crossorigin="anonymous">
 
 
 		<!-- Latest compiled and minified JavaScript -->
