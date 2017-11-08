@@ -27,7 +27,7 @@ if (isset($_POST['to'])) {
 
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="https://bootswatch.com/darkly/bootstrap.min.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css" crossorigin="anonymous">
 		<link rel="stylesheet" href="http://summernote.org/bower_components/summernote/dist/summernote.css" />
 		<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
