@@ -146,6 +146,7 @@ template '/etc/mysql/mariadb.conf.d/50-server.cnf' do
 end
 
 directory '/var/run/mysqld' do
+  user 'root'
 	action :create
 	owner 'vagrant'
 	group 'vagrant'
@@ -158,7 +159,7 @@ service 'mysql' do
 end
 
 execute 'mysql_create_databases' do
-	user 'root'
+	user 'vagrant'
 	notifies :stop, 'service[mysql]', :before
 	command '/usr/bin/env mysql_install_db'
 	creates '/vagrant/mysql/data/mysql'
