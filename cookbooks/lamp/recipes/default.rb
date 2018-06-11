@@ -177,7 +177,7 @@ end
 #####################################
 execute 'install_nodejs' do
 	user 'root'
-	command 'curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -'
+	command 'curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -'
 	creates '/usr/bin/nodejs'
 end
 package 'nodejs'
