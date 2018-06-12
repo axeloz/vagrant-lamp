@@ -37,24 +37,24 @@ apt_repository 'php7' do
 	cache_rebuild true
 end
 
-package 'php7.1'
-package 'php7.1-curl'
-package 'php7.1-dev'
-package 'php7.1-gd'
-package 'php7.1-json'
-package 'php7.1-mysql'
-package 'php7.1-readline'
-package 'php7.1-xml'
-package 'php7.1-intl'
-package 'php7.1-mbstring'
+package 'php7.2'
+package 'php7.2-curl'
+package 'php7.2-dev'
+package 'php7.2-gd'
+package 'php7.2-json'
+package 'php7.2-mysql'
+package 'php7.2-readline'
+package 'php7.2-xml'
+package 'php7.2-intl'
+package 'php7.2-mbstring'
 package 'php7.1-mcrypt'
 package 'php-xdebug'
-package 'php7.1-zip'
-package 'php7.1-sqlite3'
-package 'php7.1-msgpack'
-package 'php7.1-gmp'
-package 'php7.1-geoip'
-package 'php7.1-redis'
+package 'php7.2-zip'
+package 'php7.2-sqlite3'
+package 'php7.2-msgpack'
+package 'php7.2-gmp'
+package 'php7.2-geoip'
+package 'php7.2-redis'
 
 
 #####################################
@@ -72,7 +72,7 @@ end
 # APACHE
 #####################################
 package 'apache2'
-package 'libapache2-mod-php7.1'
+package 'libapache2-mod-php7.2'
 
 template '/etc/apache2/conf-enabled/users.conf' do
   source 'users.conf'
@@ -83,7 +83,7 @@ template '/etc/apache2/sites-enabled/000-default.conf' do
   manage_symlink_source true
 end
 
-template '/etc/php/7.1/apache2/php.ini' do
+template '/etc/php/7.2/apache2/php.ini' do
   source 'php.ini.erb'
 end
 
