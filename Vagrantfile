@@ -15,6 +15,8 @@ Vagrant.configure("2") do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "axeloz/ubuntu-server-16.04"
 
+  config.landrush.enabled = true
+	config.landrush.tld = 'vm'
 
   #config.ssh.private_key_path="~/.ssh/id_rsa"
   config.ssh.username = 'vagrant'
