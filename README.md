@@ -120,7 +120,8 @@ In order to upgrade, just:
 - To sudo in the VM, just run `sudo <command>`. The `vagrant` user belongs to the sudoers and you may `sudo` with no password asked
 - The IP address `192.168.99.100` is created by VM
 - The VM is also available on hostname `localhost`
-- In order to access your local websites: http://localhost:8080
+- In order to access your local websites: http://vagrant.vm
+- You may use the wildcard: http://*.vagrant.vm
 - In order to access Mailcatcher: http://localhost:1080
 - In order to access to MariaDB: mysql://vagrant:vagrant@localhost:3307 from the host. Use mysql://vagrant:vagrant@localhost:3306 from the VM.
 - In order to access the Mailcatcher's SMTP from the host: smtp://localhost:1025
@@ -146,13 +147,13 @@ The SSH identity forwarding is enabled from the host to the VM (`config.ssh.forw
 ### Apache
 
 #### Access
-Your local environment is available from your host computer at the address: http://localhost:8080. This will launch the [projects browser](#projects-browser).
+Your local environment is available from your host computer at the address: http://vagrant.vm. This will launch the [projects browser](#projects-browser).
 
 The default document root is: `/vagrant/www`
 
 #### Dedicated Apache virtual host
 
-In some cases, you might need to create a dedicated virtual host to access your projects. For example: http://myproject.local:8080. 
+In some cases, you might need to create a dedicated virtual host to access your projects. For example: http://myproject.vagrant.vm. 
 
 For Mac and Unix systems: in order to do so, the script [create-vhost.sh](https://github.com/axeloz/vagrant-lamp/blob/master/create-vhost.sh) is provided. Make sure it is executable (`chmod +x create-vhost.sh`) and run it from the **host** (`./create-vhost.sh`). Just follow the instructions, the script will then create an entry into the `/etc/hosts` file and will add the virtual host to Apache into the `vagrant-lamp/apache/conf` folder. Finally, it will reload Apache. 
 
