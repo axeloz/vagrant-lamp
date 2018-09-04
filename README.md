@@ -85,6 +85,7 @@ Need more tools? See [Contributing](#contributing)
 
 - Download and install VirtualBox (http://www.virtualbox.org/)
 - Download and install Vagrant (https://www.vagrantup.com/)
+- Install Landrish plugin `vagrant plugin install landrush`
 - Clone the latest version of this repository (https://github.com/axeloz/vagrant-lamp) into your Home directory, wherever you want it to be. For example for Mac: `/Users/my-user/Sites/vagrant-lamp`
 - Open your terminal app, `cd` to the `vagrant-lamp` directory
 - Run a `vagrant up` command. During the first boot, Vagrant will download the Linux Ubuntu 16.04 box from VagrantUp, create a new VirtualBox VM, boot the VM and run the Chef recipes. This will install all the dependencies, it may take some time. 
