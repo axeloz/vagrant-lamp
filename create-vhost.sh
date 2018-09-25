@@ -19,13 +19,6 @@ then
 fi
 
 
-# Checking whether /etc/hosts file exists
-if [ ! -f "/etc/hosts" ]
-then
-	error "Could not find the /etc/hosts file. I must abort..."
-	exit 1
-fi
-
 echo
 echo "= APPLICATION CONFIGURATION ="
 echo
@@ -124,11 +117,13 @@ append=false
 echo
 while true
 do
-	read -p "What is the hostname of the vhost you want to add? " hostname
+	read -p "What is the subdomain of \"vagrant.vm\" would you like to add? " hostname
 
 	if [ -z "$hostname" ]
 	then
-		error "The hostname cannot be empty, please retry..."
+		error "The subdomain cannot be empty, please retry..."
+	else
+		hostname=
 	elif [ -f "$vagrantroot/apache/conf/$hostname.conf" ]
 	then
 		error "The configuration file '$vagrantroot/apache/conf/$hostname.conf' already exists."
@@ -234,25 +229,6 @@ echo
 success "Thank you, everything is now fine. We are processing your request"
 echo
 
-# Managing the /etc/hosts file
-echo "= ADDING HOSTNAME TO LOCAL HOSTS FILE ="
-test=`cat /etc/hosts |grep "$hostname"`
-
-if [ $? -ne 0 ]
-then
-	echo "You will have to enter your password."
-	sudo -- sh -c -e "echo '127.0.0.1 $hostname' >> /etc/hosts"
-	if [ $? -ne 0 ]
-	then
-		error "Could not edit the '/etc/hosts' automatically"
-		error "You should add the following line manually:"
-		error "   127.0.0.1			$hostname"
-	else
-		success "Hostname successfully added to host's file"
-	fi
-else
-	success "The '$hostname' entry already exists in '/etc/hosts'"
-fi
 
 # Managing the Apache configuration
 echo
@@ -273,7 +249,7 @@ if [ $? -ne 0 ]
 then
 	error "Could not create the '$vagrantroot/apache/conf/$hostname.conf' file automatically"
 	error "You should create it with the following line manually:"
-	error "   127.0.0.1			$hostname"
+	error "$vhost"
 else
 	success "Hostname successfully added to host's file"
 fi
@@ -294,6 +270,5 @@ echo
 echo
 success "END, thank you!"
 success "You may now access the vhost:"
-success "http://$hostname:8080/"
+success "http://$hostname.vagrant.vm/"
 echo
-
