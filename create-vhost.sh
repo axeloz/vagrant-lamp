@@ -234,7 +234,7 @@ echo
 echo
 echo "= ADDING VHOST TO APACHE ="
 vhost="<VirtualHost *:80>
-	ServerName $hostname
+	ServerName $hostname.vagrant.vm
 	DocumentRoot $public
 	<Directory $path>
 		AllowOverride All
