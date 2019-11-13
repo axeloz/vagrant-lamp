@@ -102,6 +102,7 @@ Vagrant.configure("2") do |config|
   # SHELL
 
   config.vm.provision "chef_solo" do |chef|
+    chef.custom_config_path = "CustomConfiguration.chef"
     chef.add_recipe "lamp"
   end
 
