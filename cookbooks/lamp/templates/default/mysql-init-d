@@ -108,7 +108,7 @@ case "${1:-''}" in
    log_end_msg 0
   else
     # Could be removed during boot
-   install -m 755 -o vagrant -g vagrant -d /var/run/mysqld
+   install -m 755 -o root -g root -d /var/run/mysqld
 
     # Start MariaDB!
     /usr/bin/mysqld_safe "${@:2}" 2>&1 >/dev/null | $ERR_LOGGER &
