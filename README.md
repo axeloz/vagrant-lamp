@@ -224,7 +224,7 @@ For any other unlisted issue, please add a ticket on Github: https://github.com/
 
 When you run a files watcher on the VM, the `watch` command is running on the VM but the watched files are located on the host computer and mounted using NFS on the VM. For this reason, the watcher does not always catch file changes properly. I tried to fix this issue, let me know if you come accross this matter.
 
-For example for Laravel, the `npm run watch` command doesn't seem to work properly. Use `npm run watch-poll` instead. 
+For example for Laravel, the `yarn run watch` command doesn't seem to work properly. Use `yarn run watch-poll` instead. 
 
 ## Contributing
 
