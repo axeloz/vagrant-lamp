@@ -16,6 +16,8 @@ package 'curl'
 package 'unzip'
 package 'lsb-release'
 package 'ca-certificates'
+package 'software-properties-common'
+
 
 #####################################
 # NTPDATE
@@ -37,24 +39,24 @@ apt_repository 'php7' do
 	cache_rebuild true
 end
 
-package 'php7.2'
-package 'php7.2-curl'
-package 'php7.2-dev'
-package 'php7.2-gd'
-package 'php7.2-json'
-package 'php7.2-mysql'
-package 'php7.2-readline'
-package 'php7.2-xml'
-package 'php7.2-intl'
-package 'php7.2-mbstring'
+package 'php7.4'
+package 'php7.4-curl'
+package 'php7.4-dev'
+package 'php7.4-gd'
+package 'php7.4-json'
+package 'php7.4-mysql'
+package 'php7.4-readline'
+package 'php7.4-xml'
+package 'php7.4-intl'
+package 'php7.4-mbstring'
 package 'php7.1-mcrypt'
 package 'php-xdebug'
-package 'php7.2-zip'
-package 'php7.2-sqlite3'
-package 'php7.2-msgpack'
-package 'php7.2-gmp'
-package 'php7.2-geoip'
-package 'php7.2-redis'
+package 'php7.4-zip'
+package 'php7.4-sqlite3'
+package 'php7.4-msgpack'
+package 'php7.4-gmp'
+package 'php7.4-geoip'
+package 'php7.4-redis'
 
 
 #####################################
@@ -72,7 +74,7 @@ end
 # APACHE
 #####################################
 package 'apache2'
-package 'libapache2-mod-php7.2'
+package 'libapache2-mod-php7.4'
 
 template '/etc/apache2/conf-enabled/users.conf' do
   source 'users.conf'
@@ -101,7 +103,7 @@ end
 #####################################
 # GIT
 #####################################
-package 'python-software-properties'
+#package 'python-software-properties'
 
 apt_repository 'git-core' do
 	action :add
@@ -134,6 +136,12 @@ end
 # MYSQL
 #####################################
 
+execute 'add_mariadb_repo' do
+	user 'root'
+	command 'apt-key adv --fetch-keys "https://mariadb.org/mariadb_release_signing_key.asc" && add-apt-repository "deb [arch=amd64,arm64,ppc64el] http://mirror.realcompute.io/mariadb/repo/10.4/ubuntu bionic main"'
+end
+
+apt_update
 package 'mariadb-server'
 package 'mariadb-client'
 
@@ -153,23 +161,36 @@ directory '/var/run/mysqld' do
 	mode '0775'
 end
 
-service 'mysql' do
-  supports :start => true, :stop => true, :restart => true, :reload => true, :status => true
-  action [:enable, :reload]
-end
 
 execute 'mysql_create_databases' do
-	user 'vagrant'
+	user 'root'
 	notifies :stop, 'service[mysql]', :before
 	command '/usr/bin/env mysql_install_db'
 	creates '/vagrant/mysql/data/mysql'
 	notifies :start, 'service[mysql]', :immediately
 end
 
-execute 'mysql_create_user' do
+execute 'mysql_create_user_1' do
 	command '/usr/bin/env mysql -uroot -e "CREATE USER \'vagrant\'@\'%\' IDENTIFIED BY \'vagrant\'; GRANT ALL PRIVILEGES ON *.* TO \'vagrant\'@\'%\' WITH GRANT OPTION;"'
-	not_if '/usr/bin/env mysql -uroot -e "SELECT User FROM mysql.user WHERE User = \'vagrant\'" |grep vagrant'
+	not_if '/usr/bin/env mysql -uroot -e "SELECT User FROM mysql.user WHERE User = \'vagrant\' AND Host = \'%\'" |grep vagrant'
 end
+
+execute 'mysql_create_user_2' do
+	command '/usr/bin/env mysql -uroot -e "CREATE USER \'vagrant\'@\'localhost\' IDENTIFIED BY \'vagrant\'; GRANT ALL PRIVILEGES ON *.* TO \'vagrant\'@\'localhost\' WITH GRANT OPTION;"'
+	not_if '/usr/bin/env mysql -uroot -e "SELECT User FROM mysql.user WHERE User = \'vagrant\' AND Host = \'localhost\'" |grep vagrant'
+end
+
+#####################################
+# YARN
+#####################################
+execute 'add_yarn' do
+	user 'root'
+	command 'curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list'
+	creates '/etc/apt/sources.list.d/yarn.list'
+end
+
+apt_update
+package 'yarn'
 
 
 #####################################
@@ -177,10 +198,19 @@ end
 #####################################
 execute 'install_nodejs' do
 	user 'root'
-	command 'curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -'
+	command 'curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -'
 	creates '/usr/bin/nodejs'
 end
 package 'nodejs'
+
+#####################################
+# NPM
+#####################################
+# execute 'install_gulp' do
+# 	user 'root'
+# 	command 'npm install -g npm'
+# 	creates '/usr/bin/npm'
+# end
 
 
 #####################################
@@ -210,48 +240,6 @@ service 'mailcatcher' do
 	action [:enable, :start]
 end
 
-#####################################
-# WP_CLI
-#####################################
-bash 'install_wpcli' do
-	code <<-EOH
-		/usr/bin/env curl -sO https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-		if [ $? -eq 0 ] && [ -f "wp-cli.phar" ]; then
-			chmod +x wp-cli.phar
-			mv wp-cli.phar /usr/local/bin/wp
-		fi
-	EOH
-	creates '/usr/local/bin/wp'
-end
-
-#####################################
-# DRUSH
-#####################################
-# Installs drush@8.1.10
-bash 'install_drush' do
-  code <<-EOH
-    /usr/bin/env curl -sLO https://github.com/drush-ops/drush/releases/download/8.1.10/drush.phar
-    if [ $? -eq 0 ] && [ -f "drush.phar" ]; then
-      chmod +x drush.phar
-      mv drush.phar /usr/local/bin/drush
-    fi
-  EOH
-  creates '/usr/local/bin/drush'
-end
-
-#####################################
-# DRUPAL CONSOLE
-#####################################
-bash 'install_drupal_console' do
-	code <<-EOH
-		php -r "readfile('https://drupalconsole.com/installer');" > drupal.phar
-		if [ $? -eq 0 ] && [ -f "drupal.phar" ]; then
-			chmod +x drupal.phar
-			mv drupal.phar /usr/local/bin/drupal
-		fi
-	EOH
-	creates '/usr/local/bin/drupal'
-end
 
 
 #####################################
@@ -261,16 +249,6 @@ execute 'install_browsersync' do
 	user 'root'
 	command 'npm install -g browser-sync'
 	creates '/usr/bin/browser-sync'
-end
-
-
-#####################################
-# NPM
-#####################################
-execute 'install_gulp' do
-	user 'root'
-	command 'npm install -g npm'
-	creates '/usr/bin/npm'
 end
 
 
