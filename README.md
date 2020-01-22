@@ -3,11 +3,11 @@
 
 ## Description
 
-This repository contains a starter kit providing a fully functional **Ubuntu Server 16.04 LTS** (headless) LAMP local development environment on top of Vagrant.
+This repository contains a starter kit providing a fully functional **Ubuntu Server 18.04 LTS** (headless) LAMP local development environment on top of Vagrant.
 
 This starter kit uses a virtualization application (**VirtualBox**), a virtualization wrapper (**Vagrant**) and a recipes manager (**Chef Solo**). See "[Installation](#installation)" below.
 
-The Vagrant Virtual Machine (or VM) will run a Ubuntu Server instance. The **box image used was created by me**. It is hosted on VagrantUp as [axeloz/ubuntu-server-16.04](https://app.vagrantup.com/axeloz/boxes/ubuntu-server-16.04). It is a clean install of Ubuntu with just a little bit of configuration in it. You may use a different box or use your own by editing the `config.vm.box` setting into the [Vagrantfile](https://github.com/axeloz/vagrant-lamp/blob/master/Vagrantfile). I highly recommend to use an Ubuntu distribution. It might also work on Debian but this is untested. Changing the Vagrant box is at your own risk as I cannot guaranty the compatibility. 
+The Vagrant Virtual Machine (or VM) will run a Ubuntu Server instance. The Ubuntu box is hosted on VagrantUp as [hashicorp/bionic64](https://app.vagrantup.com/hashicorp/boxes/bionic64). It is a clean install of Ubuntu with just a little bit of configuration in it. You may use a different box or use your own by editing the `config.vm.box` setting into the [Vagrantfile](https://github.com/axeloz/vagrant-lamp/blob/master/Vagrantfile). I highly recommend to use an Ubuntu distribution. It might also work on Debian but this is untested. Changing the Vagrant box is at your own risk as I cannot guaranty the compatibility. 
 
 ### Why should I use this starter kit?
 
@@ -41,12 +41,10 @@ Let me know if you encounter any issue.
 - Browser Sync (https://www.browsersync.io)
 - CURL (https://curl.haxx.se)
 - Deployer (https://deployer.org)
-- Drush@8.1.10 (https://github.com/drush-ops/drush)
-- Drupal Console (https://drupalconsole.com/)
 - Git (https://git-scm.com/)
 - Git-LFS (https://git-lfs.github.com)
 - Gulp (http://gulpjs.com/)
-- PHP7.1 (http://www.php.net) :
+- PHP7.4 (http://www.php.net) :
     - CURL
     - Dev
     - GD
@@ -78,6 +76,7 @@ Let me know if you encounter any issue.
 - Unzip
 - WP_Cli (http://wp-cli.org/)
 - XDebug (https://xdebug.org/)
+- Yarn (http://yarnpkg.com)
 
 Need more tools? See [Contributing](#contributing)
 
