@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "axeloz/ubuntu-server-16.04"
+  config.vm.box = "hashicorp/bionic64"
 
   config.landrush.enabled = true
 	config.landrush.tld = 'vm'
@@ -76,7 +76,7 @@ Vagrant.configure("2") do |config|
      #vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
-    vb.memory = "1024"
+    vb.memory = "2048"
     vb.name = "w_vagrant_lamp"
     
     # Fixing issue of VM loosing sync of the date and time while sleeping.
