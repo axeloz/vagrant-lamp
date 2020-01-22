@@ -68,7 +68,7 @@ Let me know if you encounter any issue.
 - MongoDB (https://www.mongodb.com/)
 - Multitail (https://www.vanheusden.com/multitail/)
 - Nano
-- NodeJS 7 (https://nodejs.org/en/) et NPM (https://www.npmjs.com/)
+- NodeJS 7 (https://nodejs.org/en/) et YARN (http://yarnpkg.com)
 - NTPDate
 - Redis (https://redis.io/)
 - SASS (http://sass-lang.com)
@@ -76,7 +76,6 @@ Let me know if you encounter any issue.
 - Unzip
 - WP_Cli (http://wp-cli.org/)
 - XDebug (https://xdebug.org/)
-- Yarn (http://yarnpkg.com)
 
 Need more tools? See [Contributing](#contributing)
 
