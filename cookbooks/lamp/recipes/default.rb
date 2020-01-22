@@ -247,7 +247,7 @@ end
 #####################################
 execute 'install_browsersync' do
 	user 'root'
-	command 'npm install -g browser-sync'
+	command 'yarn global add browser-sync'
 	creates '/usr/bin/browser-sync'
 end
 
@@ -257,7 +257,7 @@ end
 #####################################
 execute 'install_bower' do
 	user 'root'
-	command 'npm install -g bower'
+	command 'yarn global add bower'
 	creates '/usr/bin/bower'
 end
 
