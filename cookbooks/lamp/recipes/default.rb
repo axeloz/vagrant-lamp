@@ -275,7 +275,7 @@ end
 # MONGODB
 #####################################
 package 'mongodb'
-service 'mysql' do
+service 'mongodb' do
   action [:enable, :start]
 end
 
