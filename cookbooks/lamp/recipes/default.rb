@@ -63,7 +63,7 @@ package 'php7.4-redis'
 # MEMCACHE
 #####################################
 package 'memcached'
-package 'php7.1-memcached'
+package 'php-memcached'
 
 service 'memcached' do
   action [:enable, :start]
@@ -85,7 +85,7 @@ template '/etc/apache2/sites-enabled/000-default.conf' do
   manage_symlink_source true
 end
 
-template '/etc/php/7.2/apache2/php.ini' do
+template '/etc/php/7.4/apache2/php.ini' do
   source 'php.ini.erb'
 end
 
