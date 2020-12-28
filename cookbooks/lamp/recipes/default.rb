@@ -145,6 +145,11 @@ apt_update
 package 'mariadb-server'
 package 'mariadb-client'
 
+
+service 'mysql' do
+  action [:enable, :start]
+end
+
 template '/etc/init.d/mysql' do
 	source 'mysql-init-d'
 end
