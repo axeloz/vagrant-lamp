@@ -57,12 +57,12 @@ if (isset($_POST['to'])) {
 					<form action="mail.php" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 							<label>From:</label>
-							<input type="email" class="form-control" name="from" value placeholder="noreply@wcie.fr" />
+							<input type="email" class="form-control" name="from" value placeholder="noreply@domain.fr" />
 						</div>
 	
 						<div class="form-group">
 							<label>To:</label>
-							<input type="email" class="form-control" name="to" value placeholder="a.devignon@wcie.fr" />
+							<input type="email" class="form-control" name="to" value placeholder="paul@domain.fr" />
 						</div>
 	
 						<div class="form-group">
