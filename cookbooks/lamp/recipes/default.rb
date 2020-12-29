@@ -147,7 +147,7 @@ package 'mariadb-client'
 
 
 service 'mysql' do
-  action [:enable, :start]
+  action [:enable]
 end
 
 template '/etc/init.d/mysql' do
@@ -156,6 +156,11 @@ end
 
 template '/etc/mysql/mariadb.conf.d/50-server.cnf' do
   source 'mysql-50-server.cnf'
+end
+
+execute 'mysql_change_user' do
+	user 'root'
+	command: '/bin/sed -i 's/^\(user\s*=\s*\).*$/\1vagrant/' /etc/mysql/my.cnf'
 end
 
 directory '/var/run/mysqld' do
