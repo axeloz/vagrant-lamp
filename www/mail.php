@@ -3,8 +3,8 @@
 
 if (isset($_POST['to'])) {
 
-	$to			= isset($_POST['to']) && !empty($_POST['to']) ? $_POST['to'] : 'noreply@wcie.fr';
-	$from		= isset($_POST['from']) && !empty($_POST['from']) ? $_POST['from'] : 'a.devignon@wcie.fr';
+	$to			= isset($_POST['to']) && !empty($_POST['to']) ? $_POST['to'] : 'noreply@domain.fr';
+	$from		= isset($_POST['from']) && !empty($_POST['from']) ? $_POST['from'] : 'paul@domain.fr';
 	$subject	= isset($_POST['subject']) && !empty($_POST['subject']) ? $_POST['subject'] : 'Test subject';
 	$message	= isset($_POST['message']) && !empty($_POST['message']) ? $_POST['message'] : 'This is a test message';
 	
