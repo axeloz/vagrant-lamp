@@ -14,12 +14,11 @@
 #
 # * Basic Settings
 #
-user		= root
-pid-file	= /var/run/mysqld/mysqld.pid
-socket		= /var/run/mysqld/mysqld.sock
+user		= vagrant
+pid-file	= /vagrant/mysql/mysqld.pid
+socket		= /vagrant/mysql/mysqld.sock
 port		= 3306
 basedir		= /usr
-#datadir	= /var/lib/mysql
 datadir		= /vagrant/mysql/data
 tmpdir		= /tmp
 lc-messages-dir	= /usr/share/mysql
@@ -73,7 +72,7 @@ long_query_time = 10
 # note: if you are setting up a replication slave, see README.Debian about
 #       other settings you may need to change.
 #server-id		= 1
-#log_bin			= /var/log/mysql/mysql-bin.log
+log_bin			= /vagrant/mysql/mysql-bin.log
 expire_logs_days	= 10
 max_binlog_size   = 100M
 #binlog_do_db		= include_database_name
